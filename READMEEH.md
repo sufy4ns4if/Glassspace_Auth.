@@ -1,4 +1,4 @@
-# Glassspace — React Login & Sign Up
+# Glassspace — React Login & Sign Up ( Using Supabase )
 
 ## Run it
 1. Install Node.js (LTS) if it is not already installed.
