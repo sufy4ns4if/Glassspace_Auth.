@@ -1,3 +1,5 @@
+import { supabase } from "../supabaseClient.js";
+
 import { useState } from "react";
 import { Eye, EyeOff, ArrowUpRight, Check } from "lucide-react";
 
@@ -7,24 +9,67 @@ export function RegisterForm({ onSwitch, notice, setNotice, active })
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [accepted, setAccepted] = useState(true);
+  const [accepted, setAccepted] = useState(false);
   const [errors, setErrors] = useState({});
 
-  function submit(event) {
-    event.preventDefault();
-    const next = {};
-    if (!name.trim()) next.name = "Please enter your name.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) next.email = "Enter a valid email address.";
-    if (password.length < 6) next.password = "Use at least 6 characters.";
-    if (!accepted) next.terms = "Please confirm the demo terms to continue.";
-    setErrors(next);
-    setNotice(null);
-    if (Object.keys(next).length) return;
 
-    const user = { name: name.trim(), email: email.trim().toLowerCase(), password };
-    localStorage.setItem("glassspace-user", JSON.stringify(user));
-    setNotice({ type: "success", text: "Account created! Flip back to login with your new details." });
-  }
+    async function submit(event) {
+      event.preventDefault();
+
+      const next = {};
+
+      if (!name.trim() || name.length < 3) {
+        next.name = "Please enter your name.";
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+        next.email = "Enter a valid email address.";
+      }
+
+      if (password.length < 7) {
+        next.password = "Use at least 7 characters.";
+      }
+
+      if (!accepted) {
+        next.terms = "Please confirm the terms to continue.";
+      }
+
+      setErrors(next);
+      setNotice(null);
+
+      if (Object.keys(next).length) return;
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: email.trim().toLowerCase(),
+          password,
+          options: {
+            data: {
+              full_name: name.trim()
+            }
+          }
+        });
+        if (error) throw error;
+        
+        if (data.session) {
+          setNotice({
+            type: "success",
+            text: "Account created successfully! You can now sign in."
+          });
+        } else {
+          setNotice({
+            type: "success",
+            text: "Account created! Check your email to confirm your account before signing in."
+          });
+        }
+      } catch (error) {
+        setNotice({
+          type: "error",
+          text: error.message || "Registration failed. Please try again."
+        });
+      }
+    }
+
 
   return (
     <div className="form-content">
@@ -48,7 +93,7 @@ export function RegisterForm({ onSwitch, notice, setNotice, active })
         <label className="field-label spaced-label" htmlFor="register-password">Create password</label>
         <div className={`password-wrap ${errors.password ? "field-error" : ""}`}>
           <input id="register-password" type={showPassword ? "text" : "password"} autoComplete="new-password"
-            placeholder="At least 6 characters" value={password}
+            placeholder="At least 7 characters" value={password}
             onChange={(e) => { setPassword(e.target.value); setErrors((old) => ({ ...old, password: "" })); }} disabled={!active} />
           <button className="eye-button" type="button" aria-label={showPassword ? "Hide password" : "Show password"}
             onClick={() => setShowPassword((v) => !v)} disabled={!active}>

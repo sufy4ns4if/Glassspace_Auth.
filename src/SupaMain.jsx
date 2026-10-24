@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Glassmorphism from "./Glassmorphism";
+import Glassmorphism from "./Glassmorphism.jsx";
 import "./Stylization.css";
 
 createRoot(document.getElementById("root")).render(

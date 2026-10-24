@@ -133,3 +133,223 @@ h1 em { font-family: Georgia, serif; font-weight: 400; color: #ffad99; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+
+/* ================================
+   GLASSSPACE USER DASHBOARD
+================================ */
+
+.dashboard-hero {
+  grid-template-columns: 1fr minmax(340px, 430px);
+}
+
+.dashboard-card {
+  position: relative;
+  padding: 34px 30px 27px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 25px;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.045) 60%,
+    rgba(255, 255, 255, 0.09)
+  );
+  backdrop-filter: blur(27px);
+  -webkit-backdrop-filter: blur(27px);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  animation: fade-up 0.8s 0.12s ease both;
+}
+
+.dashboard-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+}
+
+.dashboard-avatar {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin: 32px 0 20px;
+  border: 1px solid rgba(255, 173, 153, 0.65);
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 173, 153, 0.3),
+    rgba(255, 255, 255, 0.07)
+  );
+  color: #ffb5a1;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  box-shadow: 0 8px 35px rgba(255, 155, 136, 0.1);
+}
+
+.dashboard-name {
+  margin: 0 0 8px;
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: -0.8px;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-email {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-divider {
+  height: 1px;
+  margin: 27px 0 20px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.dashboard-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 17px 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 11px;
+}
+
+.dashboard-detail > span:last-child {
+  color: rgba(255, 255, 255, 0.88);
+  text-align: right;
+}
+
+.dashboard-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-status .status-dot {
+  flex-shrink: 0;
+}
+
+.dashboard-logout {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1b2829;
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.dashboard-logout:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #ffb5a1;
+  box-shadow: 0 8px 24px rgba(255, 155, 136, 0.16);
+}
+
+.dashboard-logout:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.dashboard-secure {
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.32);
+  font-size: 8px;
+  letter-spacing: 1.1px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* Dashboard responsive layout */
+@media (max-width: 800px) {
+  .dashboard-hero {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .dashboard-card {
+    padding: 29px 24px 24px;
+    border-radius: 22px;
+  }
+
+  .dashboard-avatar {
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-card {
+    padding: 25px 20px 22px;
+  }
+
+  .dashboard-name {
+    font-size: 24px;
+  }
+
+  .dashboard-detail {
+    font-size: 10px;
+  }
+}
+
+
+/* Password recovery card */
+.reset-card {
+  position: relative;
+  padding: 27px 30px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.39);
+  border-radius: 25px;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.17),
+    rgba(255, 255, 255, 0.055) 55%,
+    rgba(255, 255, 255, 0.1)
+  );
+  backdrop-filter: blur(27px);
+  -webkit-backdrop-filter: blur(27px);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  animation: fade-up 0.8s 0.12s ease both;
+}
+
+.reset-card .form-heading h2 span {
+  color: #ffb5a1;
+}
+
+.reset-card .field-label {
+  display: block;
+}
+
+.reset-card .password-wrap {
+  margin-bottom: 0;
+}
+
+.reset-card .spaced-label {
+  margin-top: 20px;
+}
+
+@media (max-width: 800px) {
+  .reset-card {
+    padding: 27px 24px 24px;
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 420px) {
+  .reset-card {
+    padding: 25px 20px 22px;
+  }
+}
